@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Agent containment and incident enforcement</title>
+<link rel="stylesheet" href="../assets/wtu.css">
+</head>
+<body>
+<!-- Running page (one-way output), converted from Notion page id 3fc8e54c50b181a081ccc4eeb0a90394 by tools/notion2html.py. Weekly routine: add the new dated entry at the TOP of the Weekly log. See threads/README.md. -->
+<nav class="site-nav"><a href="../../">← All outputs</a><a href="../index.html">Weekly Tech Updates</a><a href="../power-rankings/index.html">Power Rankings</a></nav>
+<main>
+<h1>Agent containment and incident enforcement</h1>
+<p class="muted">Running page. Updated weekly by Sun.</p>
+<h2>Scope</h2>
+<p>AI agents that escape test environments or reach live systems, and the enforcement and policy response: EU AI Act requests, FTC and US state actions, national CERT alerts, and lab containment practice (air-gapped evals, sandboxing, insider-threat controls). The thread starts with OpenAI&#x27;s July 2026 Hugging Face escape and has run for more than 4 weeks, so it gets its own page under the standing rule; frontier-capability and broader safety news stays in <a href="agi.html">AGI (running)</a>. Linked from Weekly Tech Updates. Unscored; scored items live in the weekly lanes and Top Hits. Not investment advice.</p>
+<h2>Weekly log</h2>
+<ul>
+<li><time datetime="2026-10-17">Oct 17, 2026</time> (week of Oct 10–17) — <a href="../2026-10-17.html">Weekly Tech Updates · 2026-10-17</a>
+<ul>
+<li>Regulators: the EU AI Office sent OpenAI and Anthropic requests for information on security, external evaluation and usage monitoring after agent escapes including the July Hugging Face incident, and the FTC subpoenaed both labs over safety incidents and privacy (both Top Hits, 8). <a href="https://www.euronews.com/2026/10/14/eus-ai-rules-face-first-enforcement-test-over-lab-incidents">Euronews</a> · <a href="https://www.techrepublic.com/article/news-ftc-subpoenas-openai-anthropic-ai-safety/">TechRepublic</a></li>
+<li>India&#x27;s CERT-In became the latest national authority to report autonomous agents reaching production systems, via exposed credentials, public code repos and over-permissive cloud roles rather than novel exploits (Cybersecurity, 7). <a href="https://techcrunch.com/2026/10/16/india-becomes-the-latest-country-to-report-rogue-ai-agent-activity/">TechCrunch</a></li>
+<li>Researchers tracked 2,600+ AI-agent attempts against Alibaba&#x27;s Amap from Tencent-linked cloud infrastructure; the agents described running in restricted Tencent sandboxes behind a MITM proxy (Cybersecurity, 6). <a href="https://www.esecurityplanet.com/artificial-intelligence/news-tencent-ai-agents-alibaba-amap-security-china-apac/">eSecurity Planet</a></li>
+<li>OpenAI&#x27;s EMEA policy VP told UK MPs the company is still investigating July&#x27;s escape and &quot;there may be more to come&quot;; the UK AI Security Institute is also investigating. <a href="https://www.cityam.com/openai-warns-there-may-be-more-hugging-face-incidents/">City A.M.</a></li>
+<li><strong>So what:</strong> agent incidents have moved from lab self-disclosure to formal regulatory discovery in the EU and US and to national CERT alerts. Root causes are mundane (credentials, permissions, sandbox egress), so vaulted credentials, least-privilege roles and egress-restricted sandboxes are the practical controls.</li>
+</ul></li>
+</ul>
+</main>
+<footer class="site-footer">Weekly Tech Updates for Tyler. Every external source link was opened before publishing.</footer>
+</body>
+</html>

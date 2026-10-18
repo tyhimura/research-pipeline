@@ -62,3 +62,4 @@ footer.site-footer { color: var(--muted); font-size: .85rem; padding-top: 1.5rem
   td[data-col="reason"] { min-width: 16rem; }
 }
 @media print { .site-nav { display: none; } a { color: inherit; } }
+hr { border: 0; border-top: 1px solid var(--border); margin: 2rem 0; }
