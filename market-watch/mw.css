@@ -186,3 +186,9 @@
 @media (max-width:600px){
   .mw-reset:not([hidden]){position:static;display:inline-flex;align-items:center;margin:8px;box-shadow:none}
 }
+/* Historical comparison: quiet secondary block below the write-up */
+.mw-hist{margin:12px 0 10px;padding:10px 14px 11px;background:var(--sand);border-left:3px solid var(--sandink);border-radius:0 10px 10px 0}
+.mw-hist h4{font-family:var(--serif);font-size:15px;font-weight:600;margin:0 0 4px;color:var(--text);letter-spacing:0}
+.mw-hist p{margin:0;font-size:14.5px;line-height:1.6;color:var(--text)}
+.mw-hist .mw-hsrc{margin-top:6px;font-size:12.5px;color:var(--muted)}
+.mw-hist .mw-hsrc a{color:var(--accent)}
