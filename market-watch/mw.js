@@ -4,6 +4,7 @@
   var svg = document.querySelector(".mw-svg"), panel = document.getElementById("mw-panel");
   if (!svg || !panel) return;
   var reset = document.querySelector(".mw-reset"), full = svg.getAttribute("data-vb").split(" ").map(Number);
+  var world = (svg.getAttribute("data-world") || svg.getAttribute("data-vb")).split(" ").map(Number);  // zoom may go anywhere on the world
   var cur = full.slice(), raf = null, active = null;
   var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   var all = function (s) { return Array.prototype.slice.call(document.querySelectorAll(s)); };
@@ -28,10 +29,11 @@
     if (!b) return full.slice();
     b = b.split(",").map(Number);
     var w = b[2] - b[0], h = b[3] - b[1], cx = b[0] + w / 2, cy = b[1] + h / 2, ar = full[2] / full[3];
-    w = Math.max(w * 1.7, 120); h = Math.max(h * 1.7, 120 / ar);
+    var small = w < 40 && h < 40;                       // small markets (KR, TH, PH…) get more context around them
+    w = Math.max(w * (small ? 2.6 : 1.7), small ? 150 : 130); h = Math.max(h * (small ? 2.6 : 1.7), (small ? 150 : 130) / ar);
     if (w / h > ar) h = w / ar; else w = h * ar;
-    w = Math.min(w, full[2]); h = Math.min(h, full[3]);
-    var x = Math.max(0, Math.min(full[2] - w, cx - w / 2)), y = Math.max(0, Math.min(full[3] - h, cy - h / 2));
+    w = Math.min(w, world[2]); h = Math.min(h, world[3]);
+    var x = Math.max(world[0], Math.min(world[0] + world[2] - w, cx - w / 2)), y = Math.max(world[1], Math.min(world[1] + world[3] - h, cy - h / 2));
     return [x, y, w, h];
   }
   function mark(code) {

@@ -158,3 +158,31 @@
   .mw-stat .v{text-align:left;margin:4px 0 1px}
 }
 @media (max-width:420px){.mw-stat .v{font-size:18px}.mw-stat .k{font-size:10.5px}.mw-stat .c{font-size:12px}.mw-stat .t{font-size:11px}}
+/* 10-market update */
+.mw-hit{fill:transparent;stroke:none;pointer-events:all}
+.mw-mk.on path{stroke:var(--text);stroke-width:2.4;stroke-linejoin:round}
+.mw-mk.on{filter:drop-shadow(0 0 3px color-mix(in srgb,var(--surface) 80%,transparent))}
+.mw-mk:focus-visible .mw-hit,.mw-mk.on .mw-hit{stroke:var(--text);stroke-width:1.2;stroke-dasharray:3 3;vector-effect:non-scaling-stroke}
+@media (min-width:901px){.mw-chips.mw-n10,.mw-chips.mw-n9{grid-template-columns:repeat(5,minmax(0,1fr))}.mw-chips.mw-n8{grid-template-columns:repeat(4,minmax(0,1fr))}}
+@media (min-width:901px){.mw-chips.mw-n10 .mw-chip,.mw-chips.mw-n9 .mw-chip{font-size:13.5px;gap:6px;padding:7px 9px}}
+@media (max-width:600px){.mw-chips{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (min-width:901px){
+  .mw-chips.mw-n10 .mw-chip,.mw-chips.mw-n9 .mw-chip{flex-wrap:wrap;row-gap:1px;align-content:center}
+  .mw-chips.mw-n10 .mw-chip .nm,.mw-chips.mw-n9 .mw-chip .nm{flex:1 1 calc(100% - 20px);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .mw-chips.mw-n10 .mw-chip .pc,.mw-chips.mw-n9 .mw-chip .pc{margin-left:18px}
+}
+/* polish 2: compact wrapped source lists, 1-2 picks, phone World view button, calmer picks rows */
+.mw-srcs{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 6px;margin:6px 0 0}
+.mw-srcs .lb{font-size:12.5px;color:var(--muted)}
+.mw-srcs ul{list-style:none;display:flex;flex-wrap:wrap;gap:4px 6px;margin:0;padding:0;min-width:0}
+.mw-srcs li{min-width:0;max-width:100%}
+.mw-srcs a{display:inline-block;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;vertical-align:bottom;font-size:12px;line-height:1.5;
+  padding:0 7px;border:1px solid var(--border);border-radius:999px;background:var(--surface2);color:var(--muted);text-decoration:none}
+.mw-srcs a:hover{color:var(--accent);border-color:var(--accent)}
+.mw-srcs a:focus-visible{outline:2px solid var(--accent);outline-offset:1px}
+.mw-picks.mw-np1{grid-template-columns:minmax(0,860px)}
+@media (min-width:821px){.mw-picks.mw-np1 .mw-facts{grid-template-columns:repeat(6,minmax(0,1fr))}}
+.mw-table .w{min-width:19em;max-width:22em}
+@media (max-width:600px){
+  .mw-reset:not([hidden]){position:static;display:inline-flex;align-items:center;margin:8px;box-shadow:none}
+}
