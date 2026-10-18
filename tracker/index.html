@@ -17,9 +17,9 @@ th{color:var(--muted);font-weight:600}
 </style><!-- rp-skin v2 --><!--rp-head--><link rel="stylesheet" href="../assets/site.css"><script src="../assets/nav.js" defer></script><script src="../assets/site.js" defer></script><!--/rp-head--></head><body class="rp rp-tracker"><!--rp-bar--><header class="rp-bar"><div class="rp-bar-in"><a class="rp-brand" href="../index.html"><span class="rp-mark" aria-hidden="true"></span>Research Pipeline</a><span class="rp-crumb">/ Morgan&#x27;s tracker</span><div class="rp-actions"><div class="rp-nav" data-root="../"><button type="button" class="rp-navbtn" aria-expanded="false" aria-controls="rp-navpanel" hidden><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false"><path d="M4 6.5h16M4 12h16M4 17.5h10" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg><span>Pages</span></button><div class="rp-navpanel" id="rp-navpanel" role="region" aria-label="All pages" hidden></div></div><noscript><a class="rp-navbtn rp-nojs" href="../all.html">All pages</a></noscript></div></div></header><!--/rp-bar-->
 <div class="sub"><a href="../" style="color:var(--muted)">← All outputs</a></div>
 <h1>Morgan · Trade Idea Tracker</h1>
-<div class="sub">Ideas from Sun's weekly Power Rankings gaps, flagged by Warren. Ideas only, never executed. Benchmark: QQQ. Updated: <span id="upd">not yet</span></div>
+<div class="sub">Two separate books. Book 1: trade ideas from Sun's weekly Power Rankings gaps, flagged by Warren (benchmark QQQ). Book 2: Warren's weekly Market Watch value picks (benchmarks: local index and QQQ). Ideas only, never executed. Updated: <span id="upd">not yet</span></div>
 
-<h2>Scoreboard</h2>
+<h2>Book 1 · Power Rankings trade ideas</h2><h2>Scoreboard</h2>
 <div class="tiles" id="tiles"></div>
 
 <h2>Open ideas</h2>
@@ -28,8 +28,17 @@ th{color:var(--muted);font-weight:600}
 <h2>Closed ideas</h2>
 <div class="tw"><table id="closed"><thead><tr><th>Logged</th><th>Ticker</th><th>Type</th><th>Closed</th><th>Reason</th><th>Entry</th><th>Exit</th><th>Return</th><th>QQQ</th><th>Excess</th><th>Hit?</th><th>Gap closed?</th></tr></thead><tbody></tbody></table></div>
 
+
+<h2>Book 2 · Warren's Market Watch value picks</h2>
+<div class="sub">Value investments, tracked from the day each was picked. Held until Warren's sell trigger fires (price reaches his value, or the thesis breaks). No swing or position labels.</div>
+<h2>Results by time since pick</h2>
+<div class="tiles" id="mwtiles"></div>
+<h2>Active picks</h2>
+<table id="mwopen"><thead><tr><th>Picked</th><th>Ticker</th><th>Market</th><th>Local index</th><th>Pick price</th><th>Warren value</th><th>Discount at pick</th><th>Last</th><th>Return</th><th>vs local</th><th>vs QQQ</th><th>Discount closed</th><th>3m</th><th>6m</th><th>12m</th><th>24m</th><th>Catalyst</th></tr></thead><tbody></tbody></table>
+<h2>Sold picks (sell trigger fired)</h2>
+<table id="mwclosed"><thead><tr><th>Picked</th><th>Ticker</th><th>Market</th><th>Sold</th><th>Trigger</th><th>Pick price</th><th>Exit</th><th>Return</th><th>vs local</th><th>vs QQQ</th><th>Discount closed</th></tr></thead><tbody></tbody></table>
 <div class="note">
-<b>Definitions.</b> Swing trade means about 2–8 weeks. Position means about 3–12 months. Return is price change from the logged entry to the exit, or to the last price if still open. Excess is that return minus QQQ over the same dates. A hit is positive excess return at horizon end or at exit. Gap closed is scored separately from price: did the market close the gap between power score and valuation that Warren flagged (yes, partly, or no), judged on the next Rankings after the idea closes.<br>
+<b>Definitions.</b> Swing trade means about 2–8 weeks. Position means about 3–12 months. Return is price change from the logged entry to the exit, or to the last price if still open. Excess is that return minus QQQ over the same dates. A hit is positive excess return at horizon end or at exit. Gap closed is scored separately from price: did the market close the gap between power score and valuation that Warren flagged (yes, partly, or no), judged on the next Rankings after the idea closes.<br><b>Market Watch picks</b> come from /workspace/market-watch/YYYY-MM-DD/picks.json (price, Warren's conservative value, discount, catalyst), one record per pick, tracked from the pick date. Return is in local currency. vs local is return minus the pick's local index; vs QQQ is return minus QQQ. Discount closed is how much of the gap between the pick price and Warren's value has been made up: (price minus pick price) divided by (value minus pick price), so 100% means value reached. The sell trigger fires when price reaches Warren's value or he says the thesis broke; the pick then moves to Sold. At 3, 6, 12 and 24 months after the pick, its return, vs local, vs QQQ and discount closed are frozen as a checkpoint (sold picks keep their exit result for later checkpoints). Hit means beating the local index at that checkpoint.<br>
 <b>Not advice.</b> These are research ideas for Tyler's review. Nothing here was traded.
 </div>
 
@@ -40,7 +49,8 @@ const pct=v=>v==null?'<span class="muted">–</span>':`<span class="${v>=0?'pos'
 const s=v=>v==null||v===''?'<span class="muted">–</span>':v;
 document.getElementById('upd').textContent=D.updated||'not yet';
 const ex=i=>(i.ret!=null&&i.qqq_ret!=null)?i.ret-i.qqq_ret:null;
-const open=D.ideas.filter(i=>i.status==='open'), closed=D.ideas.filter(i=>i.status==='closed');
+const B1=D.ideas.filter(i=>(i.category||'power_rankings')==='power_rankings');const MW=D.ideas.filter(i=>i.category==='market_watch');
+const open=B1.filter(i=>i.status==='open'), closed=B1.filter(i=>i.status==='closed');
 function stats(list){const n=list.length;if(!n)return{n:0,hit:null,avg:null,avgx:null};
  const hits=list.filter(i=>(ex(i)??-1)>0).length;
  return{n,hit:hits/n,avg:list.reduce((a,i)=>a+(i.ret||0),0)/n,avgx:list.reduce((a,i)=>a+(ex(i)||0),0)/n};}
@@ -50,9 +60,27 @@ for(const [lab,f] of [['All',()=>true],['Swing',i=>i.type==='swing'],['Position'
  tiles.push(`<div class="tile">${lab} · closed ${st.n}<b>${st.hit==null?'–':(st.hit*100).toFixed(0)+'% hit'}</b><span class="sub">avg ${st.avg==null?'–':(st.avg*100).toFixed(1)+'%'} · vs QQQ ${st.avgx==null?'–':(st.avgx*100).toFixed(1)+'%'}</span></div>`);}
 const gc=closed.filter(i=>i.gap_closed);const gy=gc.filter(i=>i.gap_closed==='yes').length;
 tiles.push(`<div class="tile">Gap closed<b>${gc.length?(gy/gc.length*100).toFixed(0)+'%':'–'}</b><span class="sub">${gy} of ${gc.length} scored</span></div>`);
-tiles.push(`<div class="tile">Open ideas<b>${open.length}</b><span class="sub">total logged ${D.ideas.length}</span></div>`);
+tiles.push(`<div class="tile">Open ideas<b>${open.length}</b><span class="sub">total logged ${B1.length}</span></div>`);
 document.getElementById('tiles').innerHTML=tiles.join('');
 const empty=c=>`<tr><td colspan="${c}" class="muted">No ideas yet. First live run Sat Oct 24.</td></tr>`;
 document.querySelector('#open tbody').innerHTML=open.length?open.map(i=>`<tr><td>${s(i.date)}</td><td>${s(i.ticker)}</td><td>${s(i.type)}</td><td>${s(i.horizon_end)}</td><td>${s(i.entry)}</td><td>${s(i.last)}</td><td>${pct(i.ret)}</td><td>${pct(i.qqq_ret)}</td><td>${pct(ex(i))}</td><td>${s(i.invalidation)}</td><td>${s(i.gap_status)}</td><td style="white-space:normal">${s(i.thesis)}</td></tr>`).join(''):empty(12);
 document.querySelector('#closed tbody').innerHTML=closed.length?closed.map(i=>`<tr><td>${s(i.date)}</td><td>${s(i.ticker)}</td><td>${s(i.type)}</td><td>${s(i.closed)}</td><td>${s(i.close_reason)}</td><td>${s(i.entry)}</td><td>${s(i.exit)}</td><td>${pct(i.ret)}</td><td>${pct(i.qqq_ret)}</td><td>${pct(ex(i))}</td><td>${(ex(i)??-1)>0?'yes':'no'}</td><td>${s(i.gap_closed)}</td></tr>`).join(''):empty(12);
+
+const xl=i=>(i.ret!=null&&i.local_ret!=null)?i.ret-i.local_ret:null;
+const mo=MW.filter(i=>i.status!=='sold'),mc=MW.filter(i=>i.status==='sold');
+const cp=(i,k)=>(i.checkpoints||{})[k];
+const cps=(i,k)=>{const c=cp(i,k);return c?`${pct(c.ret)} / ${pct(c.ret!=null&&c.local_ret!=null?c.ret-c.local_ret:null)}`:'<span class="muted">–</span>';};
+const mt=[];
+for(const k of ['3m','6m','12m','24m']){const L=MW.filter(i=>cp(i,k)),n=L.length;
+ const xs=L.map(i=>{const c=cp(i,k);return{r:c.ret,l:(c.ret!=null&&c.local_ret!=null)?c.ret-c.local_ret:null,q:(c.ret!=null&&c.qqq_ret!=null)?c.ret-c.qqq_ret:null,d:c.discount_closed};});
+ const av=f=>{const v=xs.map(f).filter(x=>x!=null);return v.length?v.reduce((a,b)=>a+b,0)/v.length:null;};
+ const hit=n?xs.filter(x=>(x.l??-1)>0).length/n:null;
+ const f1=v=>v==null?'–':(v*100).toFixed(1)+'%';
+ mt.push(`<div class="tile">${k} · ${n} picks<b>${hit==null?'–':(hit*100).toFixed(0)+'% beat local'}</b><span class="sub">avg ${f1(av(x=>x.r))} · vs local ${f1(av(x=>x.l))} · vs QQQ ${f1(av(x=>x.q))} · discount closed ${f1(av(x=>x.d))}</span></div>`);}
+const tv=mc.filter(i=>i.sell_trigger==='value reached').length,tb=mc.filter(i=>i.sell_trigger==='thesis broke').length;
+mt.push(`<div class="tile">Sell triggers fired<b>${mc.length}</b><span class="sub">${tv} reached value · ${tb} thesis broke · ${mo.length} active</span></div>`);
+document.getElementById('mwtiles').innerHTML=mt.join('');
+const e2=c=>`<tr><td colspan="${c}" class="muted">No picks yet. First Market Watch Sun Oct 25.</td></tr>`;
+document.querySelector('#mwopen tbody').innerHTML=mo.length?mo.map(i=>`<tr><td>${s(i.date)}</td><td>${s(i.ticker)}</td><td>${s(i.market)}</td><td>${s(i.local_index)}</td><td>${s(i.entry)}</td><td>${s(i.conservative_value)}</td><td>${pct(i.discount_entry)}</td><td>${s(i.last)}</td><td>${pct(i.ret)}</td><td>${pct(xl(i))}</td><td>${pct(ex(i))}</td><td>${pct(i.discount_closed_pct)}</td><td>${cps(i,'3m')}</td><td>${cps(i,'6m')}</td><td>${cps(i,'12m')}</td><td>${cps(i,'24m')}</td><td style="white-space:normal">${s(i.catalyst)}</td></tr>`).join(''):e2(17);
+document.querySelector('#mwclosed tbody').innerHTML=mc.length?mc.map(i=>`<tr><td>${s(i.date)}</td><td>${s(i.ticker)}</td><td>${s(i.market)}</td><td>${s(i.closed)}</td><td>${s(i.sell_trigger)}</td><td>${s(i.entry)}</td><td>${s(i.exit)}</td><td>${pct(i.ret)}</td><td>${pct(xl(i))}</td><td>${pct(ex(i))}</td><td>${pct(i.discount_closed_pct)}</td></tr>`).join(''):e2(11);
 </script><!--rp-foot--><footer class="rp-foot rp-slim"><a href="../all.html">All pages</a> · <a href="../archive.html">Past briefs</a> · <a href="../index.html">Home</a></footer><!--/rp-foot--></body></html>
