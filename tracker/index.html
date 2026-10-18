@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Morgan · Trade Idea Tracker</title>
+<style>
+body{overflow-wrap:anywhere;font-family:-apple-system,Segoe UI,Roboto,sans-serif;margin:0;padding:24px;background:#0f1115;color:#e6e6e6}
+h1{margin:0 0 4px;font-size:22px}h2{font-size:16px;margin:28px 0 8px;color:#9fb3c8}
+.sub{color:#8a93a0;font-size:13px}
+table{border-collapse:collapse;width:100%;font-size:13px}
+th,td{border-bottom:1px solid #262a33;padding:6px 8px;text-align:left;white-space:nowrap}
+th{color:#9fb3c8;font-weight:600}
+.tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:10px}
+.tile{background:#171a21;border:1px solid #262a33;border-radius:8px;padding:12px}
+.tile{min-width:0}.tile b{display:block;font-size:20px;margin-top:4px}
+.pos{color:#4caf7d}.neg{color:#e5606b}.muted{color:#6b7380}
+.tw{overflow-x:auto;-webkit-overflow-scrolling:touch;border:1px solid #262a33;border-radius:8px}
+.note{font-size:12px;color:#8a93a0;margin-top:24px;line-height:1.5}
+</style></head><body>
+<div class="sub"><a href="../" style="color:#9fb3c8">← All outputs</a></div>
+<h1>Morgan · Trade Idea Tracker</h1>
+<div class="sub">Ideas from Sun's weekly Power Rankings gaps, flagged by Warren. Ideas only, never executed. Benchmark: QQQ. Updated: <span id="upd">not yet</span></div>
+
+<h2>Scoreboard</h2>
+<div class="tiles" id="tiles"></div>
+
+<h2>Open ideas</h2>
+<div class="tw"><table id="open"><thead><tr><th>Logged</th><th>Ticker</th><th>Type</th><th>Horizon ends</th><th>Entry</th><th>Last</th><th>Return</th><th>QQQ</th><th>Excess</th><th>Invalidation</th><th>Gap status</th><th>Thesis</th></tr></thead><tbody></tbody></table></div>
+
+<h2>Closed ideas</h2>
+<div class="tw"><table id="closed"><thead><tr><th>Logged</th><th>Ticker</th><th>Type</th><th>Closed</th><th>Reason</th><th>Entry</th><th>Exit</th><th>Return</th><th>QQQ</th><th>Excess</th><th>Hit?</th><th>Gap closed?</th></tr></thead><tbody></tbody></table></div>
+
+<div class="note">
+<b>Definitions.</b> Swing trade means about 2–8 weeks. Position means about 3–12 months. Return is price change from the logged entry to the exit, or to the last price if still open. Excess is that return minus QQQ over the same dates. A hit is positive excess return at horizon end or at exit. Gap closed is scored separately from price: did the market close the gap between power score and valuation that Warren flagged (yes, partly, or no), judged on the next Rankings after the idea closes.<br>
+<b>Not advice.</b> These are research ideas for Tyler's review. Nothing here was traded.
+</div>
+
+<script id="data" type="application/json">{"updated": null, "ideas": []}</script>
+<script>
+const D=JSON.parse(document.getElementById('data').textContent);
+const pct=v=>v==null?'<span class="muted">–</span>':`<span class="${v>=0?'pos':'neg'}">${(v*100).toFixed(1)}%</span>`;
+const s=v=>v==null||v===''?'<span class="muted">–</span>':v;
+document.getElementById('upd').textContent=D.updated||'not yet';
+const ex=i=>(i.ret!=null&&i.qqq_ret!=null)?i.ret-i.qqq_ret:null;
+const open=D.ideas.filter(i=>i.status==='open'), closed=D.ideas.filter(i=>i.status==='closed');
+function stats(list){const n=list.length;if(!n)return{n:0,hit:null,avg:null,avgx:null};
+ const hits=list.filter(i=>(ex(i)??-1)>0).length;
+ return{n,hit:hits/n,avg:list.reduce((a,i)=>a+(i.ret||0),0)/n,avgx:list.reduce((a,i)=>a+(ex(i)||0),0)/n};}
+const tiles=[];
+for(const [lab,f] of [['All',()=>true],['Swing',i=>i.type==='swing'],['Position',i=>i.type==='position']]){
+ const st=stats(closed.filter(f));
+ tiles.push(`<div class="tile">${lab} · closed ${st.n}<b>${st.hit==null?'–':(st.hit*100).toFixed(0)+'% hit'}</b><span class="sub">avg ${st.avg==null?'–':(st.avg*100).toFixed(1)+'%'} · vs QQQ ${st.avgx==null?'–':(st.avgx*100).toFixed(1)+'%'}</span></div>`);}
+const gc=closed.filter(i=>i.gap_closed);const gy=gc.filter(i=>i.gap_closed==='yes').length;
+tiles.push(`<div class="tile">Gap closed<b>${gc.length?(gy/gc.length*100).toFixed(0)+'%':'–'}</b><span class="sub">${gy} of ${gc.length} scored</span></div>`);
+tiles.push(`<div class="tile">Open ideas<b>${open.length}</b><span class="sub">total logged ${D.ideas.length}</span></div>`);
+document.getElementById('tiles').innerHTML=tiles.join('');
+const empty=c=>`<tr><td colspan="${c}" class="muted">No ideas yet. First live run Sat Oct 24.</td></tr>`;
+document.querySelector('#open tbody').innerHTML=open.length?open.map(i=>`<tr><td>${s(i.date)}</td><td>${s(i.ticker)}</td><td>${s(i.type)}</td><td>${s(i.horizon_end)}</td><td>${s(i.entry)}</td><td>${s(i.last)}</td><td>${pct(i.ret)}</td><td>${pct(i.qqq_ret)}</td><td>${pct(ex(i))}</td><td>${s(i.invalidation)}</td><td>${s(i.gap_status)}</td><td style="white-space:normal">${s(i.thesis)}</td></tr>`).join(''):empty(12);
+document.querySelector('#closed tbody').innerHTML=closed.length?closed.map(i=>`<tr><td>${s(i.date)}</td><td>${s(i.ticker)}</td><td>${s(i.type)}</td><td>${s(i.closed)}</td><td>${s(i.close_reason)}</td><td>${s(i.entry)}</td><td>${s(i.exit)}</td><td>${pct(i.ret)}</td><td>${pct(i.qqq_ret)}</td><td>${pct(ex(i))}</td><td>${(ex(i)??-1)>0?'yes':'no'}</td><td>${s(i.gap_closed)}</td></tr>`).join(''):empty(12);
+</script></body></html>
