@@ -1,0 +1,64 @@
+/* Weekly Tech Updates: shared stylesheet. No external fonts, images or scripts. */
+:root {
+  color-scheme: light dark;
+  --bg: #ffffff; --fg: #1d1f23; --muted: #646a73; --border: #dfe2e6;
+  --surface: #f5f6f8; --accent: #1f5fbf; --accent-visited: #6a3fb5;
+  --callout: #eef4fd; --badge-bg: #fff2d6; --badge-fg: #7a4b00;
+  --pending: #8a9099; --group-warren: #f3eefc; --group-morgan: #eaf7ef;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #15171a; --fg: #e6e8eb; --muted: #9aa1ab; --border: #2e3238;
+    --surface: #1d2024; --accent: #79a8ff; --accent-visited: #b99bff;
+    --callout: #1a2433; --badge-bg: #3a2c10; --badge-fg: #ffd58a;
+    --pending: #7d848e; --group-warren: #241e33; --group-morgan: #17291f;
+  }
+}
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0; background: var(--bg); color: var(--fg);
+  font: 16px/1.6 system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+main, .site-nav, footer.site-footer { max-width: 60rem; margin: 0 auto; padding: 0 1rem; }
+main.wide { max-width: 90rem; }
+.site-nav { padding-top: 1rem; font-size: .9rem; color: var(--muted); }
+.site-nav a { margin-right: .75rem; }
+h1 { font-size: 1.8rem; line-height: 1.25; margin: 1rem 0 .5rem; }
+h2 { font-size: 1.4rem; margin: 2.2rem 0 .6rem; padding-bottom: .25rem; border-bottom: 1px solid var(--border); }
+h3 { font-size: 1.1rem; margin: 1.5rem 0 .35rem; }
+p { margin: .4rem 0 .8rem; }
+a { color: var(--accent); text-underline-offset: 2px; overflow-wrap: anywhere; }
+a:visited { color: var(--accent-visited); }
+code { background: var(--surface); padding: .05rem .3rem; border-radius: 4px; font-size: .9em; }
+ul, ol { padding-left: 1.4rem; }
+li { margin: .25rem 0; }
+.callout { background: var(--callout); border-radius: 8px; padding: .75rem 1rem; margin: 1rem 0; display: flex; gap: .6rem; }
+.callout-icon { flex: none; }
+.notion-tag, .muted { color: var(--muted); font-size: .85em; }
+.score { white-space: nowrap; }
+.table-wrap { overflow-x: auto; margin: 1rem 0; border: 1px solid var(--border); border-radius: 8px; }
+table { border-collapse: collapse; width: 100%; font-size: .92rem; }
+th, td { border-bottom: 1px solid var(--border); padding: .5rem .6rem; text-align: left; vertical-align: top; }
+thead th { background: var(--surface); position: sticky; top: 0; }
+th.group { text-align: center; font-size: .8rem; text-transform: uppercase; letter-spacing: .04em; color: var(--muted); }
+td[data-col="rank"], td[data-col="power-score"], td[data-col="move"] { white-space: nowrap; }
+td[data-col="company"] { min-width: 9rem; font-weight: 600; }
+td[data-col="reason"] { min-width: 22rem; }
+.g-warren { background: var(--group-warren); }
+.g-morgan { background: var(--group-morgan); }
+td.g-warren, td.g-morgan { min-width: 7rem; }
+.pending-cell { color: var(--pending); }
+.pending-label { font-size: .75em; margin-left: .3rem; text-transform: lowercase; }
+.badge { display: inline-block; font-size: .7rem; font-weight: 600; padding: .05rem .4rem; border-radius: 999px; background: var(--badge-bg); color: var(--badge-fg); margin-left: .35rem; vertical-align: middle; }
+details { margin: 1rem 0; }
+summary { cursor: pointer; font-weight: 600; padding: .4rem 0; }
+.note { border-left: 3px solid var(--border); padding-left: .75rem; color: var(--muted); }
+footer.site-footer { color: var(--muted); font-size: .85rem; padding-top: 1.5rem; padding-bottom: 2rem; }
+.report-list li { margin: .4rem 0; }
+@media (max-width: 40rem) {
+  body { font-size: 15px; }
+  h1 { font-size: 1.5rem; }
+  td[data-col="reason"] { min-width: 16rem; }
+}
+@media print { .site-nav { display: none; } a { color: inherit; } }
