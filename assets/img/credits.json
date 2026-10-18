@@ -1,0 +1,72 @@
+[
+ {
+  "section": "briefs",
+  "file": "assets/img/briefs.jpg",
+  "title": "Sign of the New York Stock Exchange, Broad Street.jpg",
+  "source_url": "https://commons.wikimedia.org/wiki/File:Sign_of_the_New_York_Stock_Exchange,_Broad_Street.jpg",
+  "author": "Billie Grace Ward",
+  "license": "CC0",
+  "license_url": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+  "modified": "cropped to 16:9 and resized to 800x450"
+ },
+ {
+  "section": "trades",
+  "file": "assets/img/trades.jpg",
+  "title": "Gold Ingots on white background.jpg",
+  "source_url": "https://commons.wikimedia.org/wiki/File:Gold_Ingots_on_white_background.jpg",
+  "author": "Szaaman",
+  "license": "Public domain",
+  "license_url": "",
+  "modified": "cropped to 16:9 and resized to 800x450"
+ },
+ {
+  "section": "wrap",
+  "file": "assets/img/wrap.jpg",
+  "title": "Wall Street Sign (5899884048).jpg",
+  "source_url": "https://commons.wikimedia.org/wiki/File:Wall_Street_Sign_(5899884048).jpg",
+  "author": "Alex Proimos from Sydney, Australia",
+  "license": "CC BY 2.0",
+  "license_url": "https://creativecommons.org/licenses/by/2.0",
+  "modified": "cropped to 16:9 and resized to 800x450"
+ },
+ {
+  "section": "tech",
+  "file": "assets/img/tech.jpg",
+  "title": "Green circuit board II (2389301870).jpg",
+  "source_url": "https://commons.wikimedia.org/wiki/File:Green_circuit_board_II_(2389301870).jpg",
+  "author": "Peter Shanks from Hobart, Australia",
+  "license": "CC BY 2.0",
+  "license_url": "https://creativecommons.org/licenses/by/2.0",
+  "modified": "cropped to 16:9 and resized to 800x450"
+ },
+ {
+  "section": "power-rankings",
+  "file": "assets/img/power-rankings.jpg",
+  "title": "Datacenter Server Racks (22370909788).jpg",
+  "source_url": "https://commons.wikimedia.org/wiki/File:Datacenter_Server_Racks_(22370909788).jpg",
+  "author": "Carl Lender from Sunrise, USA",
+  "license": "CC BY 2.0",
+  "license_url": "https://creativecommons.org/licenses/by/2.0",
+  "modified": "cropped to 16:9 and resized to 800x450"
+ },
+ {
+  "section": "tracker",
+  "file": "assets/img/tracker.jpg",
+  "title": "Nautical compass with rotating disk.jpg",
+  "source_url": "https://commons.wikimedia.org/wiki/File:Nautical_compass_with_rotating_disk.jpg",
+  "author": "Kwj2772",
+  "license": "CC BY-SA 3.0",
+  "license_url": "https://creativecommons.org/licenses/by-sa/3.0",
+  "modified": "cropped to 16:9 and resized to 800x450"
+ },
+ {
+  "section": "multipolarity",
+  "file": "assets/img/multipolarity.jpg",
+  "title": "The Blue Marble, AS17-148-22727.jpg",
+  "source_url": "https://commons.wikimedia.org/wiki/File:The_Blue_Marble,_AS17-148-22727.jpg",
+  "author": "Harrison Schmitt / Apollo 17",
+  "license": "Public domain",
+  "license_url": "",
+  "modified": "cropped to 16:9 and resized to 800x450"
+ }
+]
