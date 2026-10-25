@@ -11,6 +11,12 @@
   var here = norm(location.href);
   var el = function (tag, cls, text) { var e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; return e; };
   var current = null;
+  if (!document.getElementById("rp-nslim-css")) { var st = document.createElement("style"); st.id = "rp-nslim-css";
+    st.textContent = ".rp-nitem.rp-npin .rp-nt{font-weight:600}.rp-nitem.rp-npin .rp-nt::before{content:'';display:inline-block;width:7px;height:7px;border-radius:2px;background:var(--sandink);margin:0 8px 1px 0;vertical-align:middle}"
+      + ".rp-nlist .rp-nitem{min-height:38px}.rp-nitem.is-latest{flex-direction:row;align-items:center;justify-content:space-between;gap:8px}"
+      + ".rp-nmore{min-height:36px;font-size:13px;font-weight:600;color:var(--terra)!important;flex-direction:row;justify-content:flex-start;align-items:center}"
+      + ".rp-nmore:hover{background:var(--terrawash)}";
+    document.head.appendChild(st); }
   function link(item, latest) {
     var a = el("a", "rp-nitem" + (latest ? " is-latest" : "")), url = new URL(item.href, root).href;
     a.href = url;
@@ -30,10 +36,22 @@
     h.id = hid; s.setAttribute("aria-labelledby", hid); s.appendChild(h);
     if (!sec.items.length) { s.appendChild(el("p", "rp-nsoon", sec.note || "Coming soon")); panel.appendChild(s); return; }
     var ul = el("ul", "rp-nlist");
-    sec.items.forEach(function (it, i) {
-      if (i === 1 && sec.items[0].date) { var sub = el("li", "rp-nsub", "Earlier"); sub.setAttribute("aria-hidden", "true"); ul.appendChild(sub); }
-      var li = el("li"); li.appendChild(link(it, i === 0 && !!it.date)); ul.appendChild(li);
-    });
+    var slim = !!sec.more || sec.items.some(function (it) { return it.pin; });
+    if (slim) {  /* slim menu: pinned always-current pages, then the newest dated pages (first = Latest), then "See all" */
+      var firstDated = true;
+      sec.items.forEach(function (it) {
+        var li = el("li"), a = link(it, !it.pin && firstDated && sec.items.length > 1);
+        if (it.pin) a.classList.add("rp-npin"); else firstDated = false;
+        li.appendChild(a); ul.appendChild(li);
+      });
+      if (sec.more) { var li2 = el("li"), m = el("a", "rp-nitem rp-nmore", sec.more.title || "See all");
+        m.href = new URL(sec.more.href, root).href; m.appendChild(el("span", "rp-narrow", " →")); li2.appendChild(m); ul.appendChild(li2); }
+    } else {
+      sec.items.forEach(function (it, i) {
+        if (i === 1 && sec.items[0].date) { var sub = el("li", "rp-nsub", "Earlier"); sub.setAttribute("aria-hidden", "true"); ul.appendChild(sub); }
+        var li = el("li"); li.appendChild(link(it, i === 0 && !!it.date)); ul.appendChild(li);
+      });
+    }
     s.appendChild(ul); panel.appendChild(s);
   });
   if (data.links && data.links.length) {
