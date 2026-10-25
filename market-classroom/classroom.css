@@ -1,0 +1,103 @@
+/* Market Classroom: study notes, one page per concept. Uses the shared tokens in ../assets/site.css (light + dark).
+   Builder: /workspace/market-classroom-build/build.py  ·  conventions: /workspace/market-classroom-README.md */
+:root{--mc-bar1:var(--accent);--mc-bar2:var(--mint);--mc-band:var(--mint);--mc-ghost:var(--border-strong);--mc-gold:var(--sandink);
+  --mc-grid:var(--border);--mc-mid:#dcb46a;--mc-node:var(--surface2);--mc-lend:var(--accent);--mc-repay:var(--terra)}
+@media (prefers-color-scheme:dark){:root{--mc-bar2:#3fb68b;--mc-mid:#c9a35f}}
+.mc{max-width:1060px;margin:0 auto;padding:26px 20px 0}
+.mc-narrow{max-width:860px}
+.mc-kicker{font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin:0 0 8px;display:flex;flex-wrap:wrap;gap:6px 10px;align-items:center}
+.mc-kicker a{color:var(--muted);text-decoration:none}
+.mc-kicker a:hover{color:var(--accent)}
+.mc-num{display:inline-block;font-family:var(--serif);font-size:13px;font-weight:600;letter-spacing:0;text-transform:none;padding:2px 10px;border-radius:999px;background:var(--mintwash);color:var(--accent)}
+.mc h1{margin:0;font-size:clamp(1.8rem,1.3rem + 2vw,2.6rem)}
+.mc-lede{margin:6px 0 0;color:var(--muted);font-size:15.5px;max-width:60ch}
+/* chips */
+.mc-chip{display:inline-flex;align-items:center;gap:6px;font:700 11px/1 var(--sans);letter-spacing:.06em;text-transform:uppercase;padding:5px 9px;border-radius:999px;white-space:nowrap}
+.mc-chip::before{content:"";width:6px;height:6px;border-radius:50%;background:currentColor}
+.mc-chip.learning{background:var(--mintwash);color:var(--accent)}
+.mc-chip.untested{background:var(--sand);color:var(--sandink)}
+.mc-chip.shaky{background:var(--terrawash);color:var(--terra)}
+.mc-chip.solid{background:var(--accent);color:var(--surface)}
+.mc-chip.solid::before{background:var(--surface)}
+/* hub */
+.mc-top{display:grid;grid-template-columns:1.5fr 1fr 1fr;gap:16px;margin:22px 0 8px}
+@media (max-width:900px){.mc-top{grid-template-columns:1fr 1fr}.mc-top .mc-now{grid-column:1/-1}}
+@media (max-width:560px){.mc-top{grid-template-columns:1fr}}
+.mc-panel{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow);padding:18px 20px;min-width:0}
+.mc-panel h2{font-family:var(--sans);font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin:0 0 10px}
+.mc-now{position:relative;overflow:hidden;text-decoration:none;color:var(--text)!important;display:block;border-color:var(--border-strong);transition:border-color .2s,transform .2s}
+.mc-now::before{content:"";position:absolute;inset:0 auto 0 0;width:5px;background:linear-gradient(180deg,var(--mint),var(--accent))}
+.mc-now:hover{border-color:var(--mint);transform:translateY(-1px)}
+.mc-now .t{display:block;font-family:var(--serif);font-size:clamp(1.25rem,1.05rem + .8vw,1.6rem);font-weight:600;line-height:1.25;margin:2px 0 10px}
+.mc-now .m{display:flex;flex-wrap:wrap;gap:8px 12px;align-items:center;font-size:13px;color:var(--muted)}
+.mc-now .go{font-weight:600;color:var(--accent)}
+.mc-empty{display:flex;gap:10px;align-items:flex-start;color:var(--muted);font-size:14px;line-height:1.45;margin:0}
+.mc-empty svg{flex:none;margin-top:1px}
+.mc-list{list-style:none;margin:0;padding:0}
+.mc-list li{padding:6px 0;border-top:1px solid var(--border);font-size:14.5px}
+.mc-list li:first-child{border-top:0}
+.mc-unit{margin:30px 0 0}
+.mc-unit-h{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:4px 16px;border-bottom:1px solid var(--border);padding-bottom:8px;margin-bottom:14px}
+.mc-unit-h h2{margin:0;font-size:21px}
+.mc-unit-h h2 span{font-family:var(--sans);font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);margin-right:10px;vertical-align:2px}
+.mc-unit-h p{margin:0;font-size:13px;color:var(--muted)}
+.mc-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+@media (max-width:980px){.mc-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media (max-width:700px){.mc-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:440px){.mc-grid{grid-template-columns:1fr}}
+.mc-card{display:flex;flex-direction:column;gap:8px;min-height:118px;padding:14px 16px;border-radius:12px;border:1px solid var(--border);background:var(--surface);min-width:0}
+a.mc-card{text-decoration:none;color:var(--text)!important;box-shadow:var(--shadow);transition:border-color .2s,transform .2s}
+a.mc-card:hover{border-color:var(--mint);transform:translateY(-1px)}
+.mc-card .n{font-family:var(--serif);font-size:26px;font-weight:600;line-height:1;color:var(--accent)}
+.mc-card .nm{font-size:14.5px;font-weight:600;line-height:1.35}
+.mc-card .ft{margin-top:auto;display:flex;align-items:center;justify-content:space-between;gap:8px}
+.mc-card.off{background:transparent;border-style:dashed;color:var(--muted)}
+.mc-card.off .n{color:var(--border-strong)}
+.mc-card.off .nm{font-weight:500;color:var(--muted)}
+.mc-card.off .ft{font-size:12px}
+@media (max-width:440px){.mc-card{min-height:0;flex-direction:row;align-items:center;gap:12px;padding:12px 14px}.mc-card .n{font-size:22px;min-width:30px}.mc-card .ft{margin:0 0 0 auto}}
+/* concept page */
+.mc-fig{margin:24px 0 0;padding:22px 24px 18px}
+.mc-fig>h2{font-size:clamp(1.2rem,1.05rem + .6vw,1.45rem);margin:0 0 2px;font-family:var(--serif);text-transform:none;letter-spacing:-.01em;color:var(--text)}
+.mc-fig .sub{margin:0 0 12px;font-size:13.5px;color:var(--muted)}
+.mc-svg{display:block;width:100%;height:auto;overflow:visible}
+.mc-svg.m{display:none}
+@media (max-width:620px){.mc-svg.d{display:none}.mc-svg.m{display:block}.mc-fig{padding:18px 14px 14px}}
+.mc-pts{list-style:none;margin:16px 0 0;padding:14px 0 0;border-top:1px solid var(--border);display:grid;gap:10px}
+.mc-pts li{display:grid;grid-template-columns:118px minmax(0,1fr);gap:4px 14px;font-size:15px;line-height:1.55}
+.mc-pts b{font:700 11.5px/1.9 var(--sans);letter-spacing:.07em;text-transform:uppercase;color:var(--accent)}
+.mc-pts li.mem{background:var(--sand);border-radius:10px;padding:10px 12px;margin-top:2px}
+.mc-pts li.mem b{color:var(--sandink)}
+.mc-pts q{font-family:var(--serif);font-weight:600;font-size:16.5px;quotes:"\201C" "\201D"}
+@media (max-width:560px){.mc-pts li{grid-template-columns:1fr}.mc-pts b{line-height:1.4}}
+.mc-src{font-size:12.5px;color:var(--muted);margin:16px 2px 0}
+.mc-src a{color:var(--muted)}
+.mc-pager{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:baseline;gap:8px 20px;margin:22px 0 0;padding:14px 0 0;border-top:1px solid var(--border);font-size:14px}
+.mc-pager .hub{font-weight:600;order:-1}
+.mc-pager .side{display:flex;flex-wrap:wrap;gap:6px 20px;justify-content:flex-end;text-align:right}
+.mc-pager a{text-decoration:none}
+.mc-pager .dim{color:var(--muted)}
+/* svg typography + palette (all colors are CSS variables so dark mode follows the page) */
+.mc-svg text{font-family:var(--sans);fill:var(--text);font-feature-settings:"cv11" 1}
+.mc-svg text.num{font-feature-settings:"tnum" 1,"cv11" 1}
+.mc-svg .ser{font-family:var(--serif)}
+.mc-svg .mut{fill:var(--muted)}
+.mc-svg .acc{fill:var(--accent)}
+.mc-svg .ter{fill:var(--terra)}
+.mc-svg .snd{fill:var(--sandink)}
+.mc-svg .grid{stroke:var(--mc-grid);stroke-width:1}
+.mc-svg .grid.dash{stroke-dasharray:2 4}
+.mc-svg .axis{stroke:var(--border-strong);stroke-width:1.2}
+.mc-svg .b1{fill:var(--mc-bar1)}
+.mc-svg .b2{fill:var(--mc-bar2)}
+.mc-svg .band{fill:url(#mc-hatch)}
+.mc-svg .ghost{fill:var(--surface2);stroke:var(--mc-ghost);stroke-width:1.4;stroke-dasharray:5 4}
+.mc-svg .gold{fill:var(--mc-gold)}
+.mc-svg .node{fill:var(--mc-node);stroke:var(--border-strong);stroke-width:1.2}
+.mc-svg .card{fill:var(--surface);stroke:var(--border);stroke-width:1}
+.mc-svg .lend{stroke:var(--mc-lend);stroke-width:3;fill:none;stroke-linecap:round}
+.mc-svg .repay{stroke:var(--mc-repay);stroke-width:3;fill:none;stroke-linecap:round}
+.mc-svg .lendf{fill:var(--mc-lend)} .mc-svg .repayf{fill:var(--mc-repay)}
+.mc-svg .pill{fill:var(--mintwash)} .mc-svg .pillt{fill:var(--terrawash)} .mc-svg .pills{fill:var(--sand)}
+.mc-svg .bg{fill:var(--surface)}
+.mc-svg .st{stroke:var(--surface);stroke-width:2}
