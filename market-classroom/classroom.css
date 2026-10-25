@@ -90,7 +90,6 @@ a.mc-card:hover{border-color:var(--mint);transform:translateY(-1px)}
 .mc-svg .axis{stroke:var(--border-strong);stroke-width:1.2}
 .mc-svg .b1{fill:var(--mc-bar1)}
 .mc-svg .b2{fill:var(--mc-bar2)}
-.mc-svg .band{fill:url(#mc-hatch)}
 .mc-svg .ghost{fill:var(--surface2);stroke:var(--mc-ghost);stroke-width:1.4;stroke-dasharray:5 4}
 .mc-svg .gold{fill:var(--mc-gold)}
 .mc-svg .node{fill:var(--mc-node);stroke:var(--border-strong);stroke-width:1.2}
